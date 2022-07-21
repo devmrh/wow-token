@@ -99,3 +99,4 @@ with open('result.txt', 'a') as fd:
         f'\n (24 hours log) on: {datetime.today().strftime("%Y-%m-%d-%H:%M:%S")} 2 record has been updated')
 
 
+database.close()

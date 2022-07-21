@@ -10,3 +10,4 @@ _ide_helper_models.php
 # ignore python env
 /env
 /venv
+result.txt
