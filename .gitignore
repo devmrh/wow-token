@@ -1,0 +1,12 @@
+# ignore ide
+/.idea
+/.vscode
+
+# helpers for ide
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
+
+# ignore python env
+/env
+/venv
