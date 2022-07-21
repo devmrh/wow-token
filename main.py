@@ -48,8 +48,8 @@ def generate_access_token():
 
         # save to db
         # update or create record
-        token_collection.update_one({"access_token": access_token}, {
-                                    "$set": {"access_token": access_token, "expire_in": expire_in}}, upsert=True)
+        token_collection.delete_many({})
+        token_collection.insert_one({"access_token": access_token, "expire_in": expire_in})
         return access_token
 
     else:
