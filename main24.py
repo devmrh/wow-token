@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from db import Mongo
 import requests
 import time
@@ -94,7 +95,8 @@ for region in region_list:
 
     time.sleep(5)
 
-with open('result.txt', 'a') as fd:
+cwd = os.path.dirname(os.path.realpath(__file__))
+with open(f'{cwd}/result.txt', 'a') as fd:
     fd.write(
         f'\n (24 hours log) on: {datetime.today().strftime("%Y-%m-%d-%H:%M:%S")} 2 record has been updated')
 

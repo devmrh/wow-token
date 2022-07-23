@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from db import Mongo
 import requests
 import time
@@ -49,7 +50,8 @@ def generate_access_token():
         # save to db
         # update or create record
         token_collection.delete_many({})
-        token_collection.insert_one({"access_token": access_token, "expire_in": expire_in})
+        token_collection.insert_one(
+            {"access_token": access_token, "expire_in": expire_in})
         return access_token
 
     else:
@@ -89,13 +91,17 @@ for region in region_list:
     if golds is None:
         golds_collection.insert_one(insert_data)
     else:
-        golds_collection.update_one({"region": region}, {
-                                    "$push": {"history": {"price": price, "timestamp": timestamp}}})
-
+        current_price = golds["history"][-1]
+        if price == current_price["price"]:
+            pass
+        else:
+            golds_collection.update_one({"region": region}, {
+                "$push": {"history": {"price": price, "timestamp": timestamp}}})
 
     time.sleep(5)
 
-with open('result.txt', 'a') as fd:
+cwd = os.path.dirname(os.path.realpath(__file__))
+with open(f'{cwd}/result.txt', 'a') as fd:
     fd.write(
         f'\n (normal log) on: {datetime.today().strftime("%Y-%m-%d-%H:%M:%S")} 2 record has been updated')
 
